@@ -24,7 +24,11 @@ class FirstController extends Controller
             $app = new First;
             $app->user_id = Auth::user()->id;
             $app->country = $request->country;
-            $app->permit = $request->permit;
+            if ($request->country == "Singapore") {
+                $app->permit = $request->permit;
+            } else {
+                $app->permit = "";
+            }
             $app->position = $request->position;
             $app->save();
             $request->session()->flash('success', "Saved");
