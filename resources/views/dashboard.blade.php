@@ -7,7 +7,7 @@
     </h1>
     <div class="mt-4">
         @if(Auth::user()->confirmed)
-        <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        <!-- <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             <div class="max-w-sm rounded overflow-hidden shadow-lg mb-4">
                 <img class="w-full" src="{{ asset('step1.png') }}" alt="Sunset in the mountains">
                 <div class="px-6 py-4">
@@ -133,6 +133,9 @@
                 @endif
             </div>
 
+        </div> -->
+        <div>
+            <h1>Welcome, Please come back after sometime</h1>
         </div>
         @else
         <div id="admin" class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
