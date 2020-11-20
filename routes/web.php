@@ -48,6 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
             return view('step.stepone');
         }
     });
+    Route::post('/confirm', [FirstController::class, 'confirm']);
+    Route::post('/confirm/candidate', [FirstController::class, 'confirmCan']);
+
     Route::post('/stepone', [FirstController::class, 'post']);
     Route::get('/step/two', function () {
         if (Auth::user()->first) {
@@ -56,6 +59,19 @@ Route::group(['middleware' => 'auth'], function () {
                 return redirect()->back();
             } else {
                 return view('step.steptwo');
+            }
+        } else {
+            Session::flash('message', 'Not valid');
+            return redirect()->back();
+        }
+    });
+    Route::get('/complete/second', function () {
+        if (Auth::user()->first) {
+            if (!Auth::user()->first->is_completed) {
+                Session::flash('message', 'Not valid');
+                return redirect()->back();
+            } else {
+                return view('step.complete');
             }
         } else {
             Session::flash('message', 'Not valid');

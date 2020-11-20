@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\First;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Greet;
 
 class FirstController extends Controller
 {
@@ -34,5 +37,32 @@ class FirstController extends Controller
             $request->session()->flash('success', "Saved");
             return redirect('/dashboard');
         }
+    }
+
+    public function confirm()
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        $user->is_admin = 1;
+        $user->confirmed = 1;
+        $user->save();
+        $details = [
+            'title' => 'Welcome to Jobs on High, Happy to have you',
+            'body' => 'Note : Pay one time registration fee through our www.jobsonhigh.com website ONLY. Jobsonhigh never ask any fee or payment on visa process. This is direct platform for (C2C)companies to candidates. So, no middle man, no agents. Good luck.'
+        ];
+        Mail::to(Auth::user()->email)->send(new Greet($details));
+        return redirect('/dashboard');
+    }
+    public function confirmCan()
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        $user->is_admin = 0;
+        $user->confirmed = 1;
+        $user->save();
+        $details = [
+            'title' => 'Welcome to Jobs on High, Happy to have you',
+            'body' => 'Note : Pay one time registration fee through our www.jobsonhigh.com website ONLY. Jobsonhigh never ask any fee or payment on visa process. This is direct platform for (C2C)companies to candidates. So, no middle man, no agents. Good luck.'
+        ];
+        Mail::to(Auth::user()->email)->send(new Greet($details));
+        return redirect('/dashboard');
     }
 }

@@ -109,6 +109,12 @@
                     <div class="p-5">
                         <h2 class="display-4">Final steps and Payment!</h2>
                         <p>Give most important and required personal details and complete the payment</p>
+                        <p>10,000+ companies are ready to hire you
+                            Make one time registration,
+                            Ready for direct telephonic interview,
+                            Get job visa for free,
+                            Fly freely. Registration opened for Singapore,Malaysia,Dubai,Qatar.
+                        </p>
                     </div>
                 </div>
             </div>

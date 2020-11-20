@@ -6,7 +6,8 @@
         Welcome to Jobs on High
     </h1>
     <div class="mt-4">
-        <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3">
+        @if(Auth::user()->confirmed)
+        <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             <div class="max-w-sm rounded overflow-hidden shadow-lg mb-4">
                 <img class="w-full" src="{{ asset('step1.png') }}" alt="Sunset in the mountains">
                 <div class="px-6 py-4">
@@ -133,5 +134,34 @@
             </div>
 
         </div>
+        @else
+        <div id="admin" class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
+            <h1 class="text-center">Who you're ?</h1>
+            <div class="mt-4">
+                <form action="/confirm/candidate" method="POST" onsubmit="myFunction()">
+                    @csrf
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        Candidate looking for a job
+                    </button>
+                </form>
+            </div>
+            <div class="mt-4">
+                <form action="/confirm" method="POST" onsubmit="myFunction()">
+                    @csrf
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        Company looking to hire candidates
+                    </button>
+                </form>
+            </div>
+        </div>
+        @endif
+        <h1 class="text-center mt-3" style="display:none" id="load">
+            Loading.....</h1>
     </div>
+    <script>
+        function myFunction() {
+            document.getElementById('admin').style.display = "none";
+            document.getElementById('load').style.display = "block";
+        }
+    </script>
 </x-app-layout>

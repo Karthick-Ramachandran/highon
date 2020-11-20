@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Second;
+use App\Models\SecondComplete;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -16,8 +17,8 @@ class SecondController extends Controller
             "lastName" => 'required|min:3',
             "age" => 'required',
             "sex" => 'required',
-            "nationality" => 'required|min:3',
-            "qualification" => 'required|min:3',
+            "nationality" => 'required',
+            "qualification" => 'required',
             "exp" => 'required',
         ]);
 
@@ -37,12 +38,18 @@ class SecondController extends Controller
         } else {
             $app->exp = 0;
         }
+        $app->is_completed = 0;
 
         $app->save();
+        $complete = new SecondComplete;
+
+        $complete->user_id = Auth::user()->id;
+
+        $complete->save();
 
         $request->session()->flash('success', "Saved");
 
-        return redirect('/dashboard');
+        return redirect('/complete/second');
     }
 
     public function edit(Request $request)
@@ -74,11 +81,12 @@ class SecondController extends Controller
         } else {
             $app->exp = 0;
         }
+        $app->is_completed = 0;
 
         $app->save();
 
         $request->session()->flash('success', "Saved");
 
-        return redirect('/dashboard');
+        return redirect('/complete/second');
     }
 }

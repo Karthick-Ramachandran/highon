@@ -40,14 +40,6 @@
                 </x-jet-button>
             </div>
         </form>
-
-        <div class="flex justify-center mt-5">
-            <div>
-                <a class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" href="{{ url('/employer/register') }}">
-                    Register as an Employer
-                </a>
-            </div>
-        </div>
     </x-jet-authentication-card>
 
 
