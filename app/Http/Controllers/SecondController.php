@@ -14,42 +14,43 @@ class SecondController extends Controller
 
         $this->validate($request, [
             "firstName" => 'required|min:3',
-            "lastName" => 'required|min:3',
             "age" => 'required',
             "sex" => 'required',
             "nationality" => 'required',
             "qualification" => 'required',
             "exp" => 'required',
         ]);
-
-        $app = new Second;
-        $app->user_id = Auth::user()->id;
-        $app->firstName = $request->firstName;
-        $app->surname = $request->surname;
-        $app->lastName = $request->lastName;
-        $app->dob = $request->dob;
-        $app->age = $request->age;
-        $app->sex = $request->sex;
-        $app->nationality = $request->nationality;
-        $app->qualification = $request->qualification;
-
-        if ($request->exp == "yes") {
-            $app->exp = 1;
+        if (Second::where('user_id', Auth::user()->id)->exists()) {
+            return redirect('/edit/step/two');
         } else {
-            $app->exp = 0;
+            $app = new Second;
+            $app->user_id = Auth::user()->id;
+            $app->firstName = $request->firstName;
+            $app->surname = $request->surname;
+            $app->lastName = $request->lastName;
+            $app->dob = $request->dob;
+            $app->age = $request->age;
+            $app->sex = $request->sex;
+            $app->nationality = $request->nationality;
+            $app->qualification = $request->qualification;
+
+            if ($request->exp == "yes") {
+                $app->exp = 1;
+            } else {
+                $app->exp = 0;
+            }
+            $app->is_completed = 0;
+
+            $app->save();
+            $complete = new SecondComplete;
+
+            $complete->user_id = Auth::user()->id;
+
+            $complete->save();
+
+
+            return redirect('/complete/second');
         }
-        $app->is_completed = 0;
-
-        $app->save();
-        $complete = new SecondComplete;
-
-        $complete->user_id = Auth::user()->id;
-
-        $complete->save();
-
-        $request->session()->flash('success', "Saved");
-
-        return redirect('/complete/second');
     }
 
     public function edit(Request $request)
@@ -57,7 +58,6 @@ class SecondController extends Controller
 
         $this->validate($request, [
             "firstName" => 'required|min:3',
-            "lastName" => 'required|min:3',
             "age" => 'required',
             "sex" => 'required',
             "nationality" => 'required|min:3',
@@ -85,7 +85,6 @@ class SecondController extends Controller
 
         $app->save();
 
-        $request->session()->flash('success', "Saved");
 
         return redirect('/complete/second');
     }

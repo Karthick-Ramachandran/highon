@@ -3,8 +3,12 @@
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FirstController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\SecondCompleteController;
 use App\Http\Controllers\SecondController;
 use App\Models\Payment;
+use App\Models\Qualification;
+use App\Models\Second;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +62,11 @@ Route::group(['middleware' => 'auth'], function () {
                 Session::flash('message', 'Not valid');
                 return redirect()->back();
             } else {
-                return view('step.steptwo');
+                if (Second::where('user_id', Auth::user()->id)->exists()) {
+                    return redirect('/edit/step/two');
+                } else {
+                    return view('step.steptwo');
+                }
             }
         } else {
             Session::flash('message', 'Not valid');
@@ -79,16 +87,12 @@ Route::group(['middleware' => 'auth'], function () {
         }
     });
     Route::post('/steptwo', [SecondController::class, 'post']);
+    Route::post('/steptwo/comp', [SecondCompleteController::class, 'post']);
+
     Route::get('/edit/step/two', function () {
-        if (Auth::user()->second) {
-            if (!Auth::user()->second->is_completed) {
-                Session::flash('message', 'Not valid');
-                return redirect()->back();
-            } else {
-                return view('step.editsteptwo');
-            }
+        if (Second::where('user_id', Auth::user()->id)->exists()) {
+            return view('step.editsteptwo');
         } else {
-            Session::flash('message', 'Not valid');
             return redirect()->back();
         }
     });
@@ -96,6 +100,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment', function () {
         $app = Payment::where('id', '!=', 0)->first();
         return view('payment')->with('app', $app);
+    });
+
+    Route::get('/add/exp', function () {
+        if (Auth::user()->second) {
+            if (Auth::user()->second->exp) {
+                $app = Qualification::where('user_id', Auth::user()->id)->paginate(6);
+                return view('step.experience')->with('app', $app);
+            } else {
+                Session::flash('message', 'Not valid');
+                return redirect('/dashboard');
+            }
+        } else {
+            Session::flash('message', 'Not valid');
+            return redirect('/dashboard');
+        }
+    });
+    Route::post('/add/exp', [QualificationController::class, 'post']);
+    Route::get('delete/{id}', function ($id) {
+        $app = Qualification::find($id);
+        $app->delete();
+        Session::flash('success', 'Delete');
+        return redirect()->back();
     });
 });
 

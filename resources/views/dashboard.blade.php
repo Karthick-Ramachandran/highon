@@ -7,7 +7,7 @@
     </h1>
     <div class="mt-4">
         @if(Auth::user()->confirmed)
-        <!-- <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             <div class="max-w-sm rounded overflow-hidden shadow-lg mb-4">
                 <img class="w-full" src="{{ asset('step1.png') }}" alt="Sunset in the mountains">
                 <div class="px-6 py-4">
@@ -55,19 +55,26 @@
                         <a href="{{ url('/edit/step/two') }}">Edit Step 2</a>
 
                     </button>
+                    @if(Auth::user()->second->exp)
+                    <button class="inline-block mt-2 bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
+                        <a href="{{ url('/add/exp') }}">Add Work Experience</a>
+                    </button>
+                    @endif
                 </div>
                 @else
                 <div class="px-6 pt-4 pb-2">
 
                     <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
-                        <a href="{{ url('/step/two') }}">Start Step 2</a>
+                        <a href="{{ url('/step/two') }}">Continue to Step 2</a>
                     </button>
+
+
                 </div>
                 @endif
                 @else
                 <div class="px-6 pt-4 pb-2">
                     <button class="inline-block bg-gray-200 rounded-full px-3 py-1 text-xl font-semibold text-gray-700 mr-2 mb-2">
-                        <a href="{{ url('/step/two') }}">Start Step 2</a>
+                        <a href="{{ url('/step/two') }}">Continue to Step 2</a>
                     </button>
                 </div>
                 @endif
@@ -133,10 +140,8 @@
                 @endif
             </div>
 
-        </div> -->
-        <div>
-            <h1>Welcome, Please come back after sometime</h1>
         </div>
+
         @else
         <div id="admin" class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
             <h1 class="text-center">Who you're ?</h1>

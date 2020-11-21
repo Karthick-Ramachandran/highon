@@ -17,7 +17,7 @@ class CreateSecondsTable extends Migration
             $table->id();
             $table->integer('user_id')->unsigned();
             $table->string('firstName');
-            $table->string('lastName');
+            $table->string('lastName')->nullable();
             $table->string('surname')->nullable();
             $table->string('dob');
             $table->string('age');

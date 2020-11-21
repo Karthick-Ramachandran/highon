@@ -75,4 +75,8 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Third');
     }
+    public function complete()
+    {
+        return $this->hasOne("App\Models\SecondComplete");
+    }
 }

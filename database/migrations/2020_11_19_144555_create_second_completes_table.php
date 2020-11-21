@@ -16,7 +16,7 @@ class CreateSecondCompletesTable extends Migration
         Schema::create('second_completes', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
-            $table->json('skills')->nullable();
+            $table->text('skills')->nullable();
             $table->string('notice')->nullable();
             $table->string('height')->nullable();
             $table->string('weight')->nullable();
@@ -29,6 +29,7 @@ class CreateSecondCompletesTable extends Migration
             $table->string('passport')->nullable();
             $table->text('copy')->nullable();
             $table->text('photo')->nullable();
+            $table->boolean('is_completed')->default(0);
             $table->timestamps();
         });
     }

@@ -54,6 +54,15 @@
                 </span>
             </div>
             @endif
+            @if($errors->any)
+            @foreach($errors->all() as $error)
+            <div class="mt-2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">{{ $error }}</strong>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                </span>
+            </div>
+            @endforeach
+            @endif
             {{ $slot }}
         </main>
     </div>
