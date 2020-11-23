@@ -79,4 +79,8 @@ class User extends Authenticatable
     {
         return $this->hasOne("App\Models\SecondComplete");
     }
+    public function applications()
+    {
+        return $this->hasMany("App\Models\Application");
+    }
 }

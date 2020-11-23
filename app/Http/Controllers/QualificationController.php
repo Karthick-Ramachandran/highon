@@ -13,8 +13,8 @@ class QualificationController extends Controller
         $this->validate($request, [
             "company" => 'required',
             "country" => 'required',
-            "permit" => 'required',
-            "duration" => 'required'
+            "duration" => 'required',
+            "position" => 'required'
         ]);
 
         $app = new Qualification;
@@ -22,6 +22,7 @@ class QualificationController extends Controller
         $app->company = $request->company;
         $app->country = $request->country;
         $app->permit = $request->permit;
+        $app->position = $request->position;
         $app->duration = $request->duration;
         $app->save();
         $request->session()->flash('success', "Saved");

@@ -19,7 +19,8 @@ class CreateQualificationsTable extends Migration
             $table->string('company');
             $table->string('country');
             $table->string('duration');
-            $table->string('permit');
+            $table->string('position');
+            $table->string('permit')->nullable();
             $table->timestamps();
         });
     }

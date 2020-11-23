@@ -25,7 +25,7 @@
             <div class="px-6 pt-4 pb-2">
                 <button class="inline-block bg-black rounded-full px-3 py-1 text-ls font-semibold text-white mr-2 mb-2" onclick="submit()" id="dis">Proceed to pay {{ $app->payment }}rs</button>
 
-                <form action="{{ route('payment') }}" method="POST">
+                <form action="/payments/new" method="POST">
                     @csrf
                     <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="{{ env('RAZOR_KEY') }}" data-amount="{{ $app->payment }}00" data-prefill.name="{{ Auth::user()->name }}" data-prefill.email="{{ Auth::user()->email }}" data-theme.color="#ff7529">
                     </script>

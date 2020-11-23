@@ -5,6 +5,15 @@
     <h1 class="text-center subpixel-antialiased mt-8 font-black">
         Welcome to Jobs on High
     </h1>
+    @if(Auth::user()->third)
+    @if(Auth::user()->third->is_completed)
+    <div class="px-6 pt-4 pb-2 mt-3 mb-3">
+        <button class="inline-block bg-red-400 rounded-full px-3 py-1 text-xl font-semibold text-white-700 mr-2 mb-2">
+            <a href="{{ url('/apply/new') }}">Apply new</a>
+        </button>
+    </div>
+    @endif
+    @endif
     <div class="mt-4">
         @if(Auth::user()->confirmed)
         <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">

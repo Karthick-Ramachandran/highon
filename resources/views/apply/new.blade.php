@@ -10,7 +10,7 @@
             Choose Country, Permit and Role
         </h1>
         <div class="mt-3 grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
-            <form class="w-full max-w-sm" method="POST" action="/stepone">
+            <form class="w-full max-w-sm" method="POST" action="/newapp">
                 @csrf
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/2">

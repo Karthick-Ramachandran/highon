@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FirstController;
 use App\Http\Controllers\PaymentsController;
@@ -88,6 +89,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::post('/steptwo', [SecondController::class, 'post']);
     Route::post('/steptwo/comp', [SecondCompleteController::class, 'post']);
+    Route::get('/apply/new', [ApplicationController::class, 'get']);
+
+    Route::post('/newapp', [ApplicationController::class, 'post']);
+    Route::get('/complete/payment/new', [ApplicationController::class, 'complete']);
+    Route::post('/payments/new', [ApplicationController::class, 'payment']);
 
     Route::get('/edit/step/two', function () {
         if (Second::where('user_id', Auth::user()->id)->exists()) {

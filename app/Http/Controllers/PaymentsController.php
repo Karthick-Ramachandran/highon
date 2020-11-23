@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Greet;
+use App\Models\Application;
 use App\Models\Third;
 use Illuminate\Http\Request;
 
@@ -10,6 +12,7 @@ use Razorpay\Api\Api;
 use Session;
 use Redirect;
 use Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentsController extends Controller
 {
@@ -45,7 +48,16 @@ class PaymentsController extends Controller
         $payme->txncode = "123" . Auth::user()->id;
         $payme->message = "Payment success";
         $payme->is_completed = 1;
+
+        $app = Application::where("user_id", Auth::user()->id)->first();
+        $app->is_completed = 1;
+        $app->save();
         $payme->save();
+        $details = [
+            'title' => 'Congrats',
+            'body' => 'Your payment is complete'
+        ];
+        Mail::to(Auth::user()->email)->send(new Greet($details));
         return redirect('/dashboard');
     }
 }

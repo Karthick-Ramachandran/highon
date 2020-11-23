@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Greet;
+use App\Models\Application;
 
 class FirstController extends Controller
 {
@@ -34,6 +35,12 @@ class FirstController extends Controller
             }
             $app->position = $request->position;
             $app->save();
+            $application = new Application;
+            $application->user_id = Auth::user()->id;
+            $application->country = $request->country;
+            $application->permit = $request->permit;
+            $application->position = $request->position;
+            $application->save();
             $request->session()->flash('success', "Saved");
             return redirect('/dashboard');
         }
@@ -47,7 +54,7 @@ class FirstController extends Controller
         $user->save();
         $details = [
             'title' => 'Welcome to Jobs on High, Happy to have you',
-            'body' => 'Note : Pay one time registration fee through our www.jobsonhigh.com website ONLY. Jobsonhigh never ask any fee or payment on visa process. This is direct platform for (C2C)companies to candidates. So, no middle man, no agents. Good luck.'
+            'body' => ''
         ];
         Mail::to(Auth::user()->email)->send(new Greet($details));
         return redirect('/dashboard');
