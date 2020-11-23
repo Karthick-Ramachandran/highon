@@ -27,7 +27,7 @@
 
                 <form action="/payments/new" method="POST">
                     @csrf
-                    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="{{ env('RAZOR_KEY') }}" data-amount="{{ $app->payment }}00" data-prefill.name="{{ Auth::user()->name }}" data-prefill.email="{{ Auth::user()->email }}" data-theme.color="#ff7529">
+                    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_pU1TmRxWlDOGjS" data-amount="{{ $app->payment }}00" data-prefill.name="{{ Auth::user()->name }}" data-prefill.email="{{ Auth::user()->email }}" data-theme.color="#ff7529">
                     </script>
                 </form>
             </div>
