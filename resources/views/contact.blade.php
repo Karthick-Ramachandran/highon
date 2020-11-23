@@ -102,7 +102,7 @@
     <form class="form">
         <h2>CONTACT US</h2>
         <p type="Name:"><input placeholder="Write your name here.."></input></p>
-        <p type="Number:"><input placeholder="Number to call you back.."></input></p>
+        <p type="Email:"><input placeholder="Email to call you back.."></input></p>
         <p type="Message:"><input placeholder="What would you like to tell us.."></input></p>
         <button>Send Message</button>
     </form>
