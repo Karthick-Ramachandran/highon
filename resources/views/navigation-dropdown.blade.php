@@ -15,9 +15,9 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         Jobs on High
                     </x-jet-nav-link>
-                   @if(Auth::user()->is_admin)
+                    @if(Auth::user()->is_admin)
                     <x-jet-nav-link href="{{ url('/admin/dashboard') }}">
-                        Admin
+                        Employee list
                     </x-jet-nav-link>
                     @endif
                 </div>
@@ -124,8 +124,8 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
             @if(Auth::user()->is_admin)
-           <x-jet-responsive-nav-link href="{{ url('/admin/dashboard') }}">
-                Admin
+            <x-jet-responsive-nav-link href="{{ url('/admin/dashboard') }}">
+                Employee list
             </x-jet-responsive-nav-link>
             @endif
         </div>

@@ -22,7 +22,7 @@ class EmployerController extends Controller
         $app->name = $request->name;
         $app->email = $request->email;
         $app->password = Hash::make($request->password);
-        $app->is_admin = 1;
+        $app->is_admin = 0;
         $app->save();
         $details = [
             'title' => 'Welcome to Jobs on High',

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Greet;
+use App\Models\AdminData;
 use App\Models\Application;
 
 class FirstController extends Controller
@@ -46,16 +47,23 @@ class FirstController extends Controller
         }
     }
 
-    public function confirm()
+    public function confirm(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
-        $user->is_admin = 1;
+        $user->is_admin = 0;
         $user->confirmed = 1;
+        $user->request_admin = 1;
         $user->save();
+
+        $admin = new AdminData;
+        $admin->user_id  = Auth::user()->id;
+        $admin->save();
         $details = [
             'title' => 'Welcome to Jobs on High, Happy to have you',
-            'body' => ''
+            'body' => 'Please wait till your application gets approved'
         ];
+        $request->session()->flash('success', "Request sent");
+
         Mail::to(Auth::user()->email)->send(new Greet($details));
         return redirect('/dashboard');
     }

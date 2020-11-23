@@ -5,7 +5,250 @@
     <h1 class="text-center subpixel-antialiased mt-8 font-black">
         Welcome to Jobs on High
     </h1>
+    @if(Auth::user()->request_admin)
+    <div class="mt-3 grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
+        <form class="w-full max-w-sm" method="POST" action="/admin/data">
+            @csrf
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        First Name
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="John" value="{{Auth::user()->adminData->firstname}}" name="firstname" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Last Name
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="John" value="{{Auth::user()->adminData->lastname}}" name="lastname" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        Choose Country
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <div class="relative">
+
+                        <select sele class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="country" required>
+                            <option value="Singapore" @if(Auth::user()->adminData->country == "Singapore")
+                                selected
+                                @endif
+                                >Singapore</option>
+                            <option value="Malaysia" @if(Auth::user()->adminData->country == "Malaysia")
+                                selected
+                                @endif
+                                >Malaysia</option>
+                            <option value="Dubai" @if(Auth::user()->adminData->country == "Dubai")
+                                selected
+                                @endif
+                                >Dubai</option>
+                            <option value="Qatar" @if(Auth::user()->adminData->country == "Qatar")
+                                selected
+                                @endif
+                                >Qatar</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Registration number
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->reg}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="number" name="reg" required>
+                </div>
+            </div>
+
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Business Name
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->business}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="business" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Industry
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->industry}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="industry" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Business Address
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->bus_add}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="bus_add" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Contact number
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->contact}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="contact" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-4">
+                <div class="md:w-1/3"></div>
+                <div class="md:w-2/3">
+                    <button type="submit" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    @endif
     @if(Auth::user()->is_admin)
+    <div class="mt-3 grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
+        <form class="w-full max-w-sm" method="POST" action="/admin/data">
+            @csrf
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        First Name
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="John" value="{{Auth::user()->adminData->firstname}}" name="firstname" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Last Name
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="John" value="{{Auth::user()->adminData->lastname}}" name="lastname" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        Choose Country
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <div class="relative">
+
+                        <select sele class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="country" required>
+                            <option value="Singapore" @if(Auth::user()->adminData->country == "Singapore")
+                                selected
+                                @endif
+                                >Singapore</option>
+                            <option value="Malaysia" @if(Auth::user()->adminData->country == "Malaysia")
+                                selected
+                                @endif
+                                >Malaysia</option>
+                            <option value="Dubai" @if(Auth::user()->adminData->country == "Dubai")
+                                selected
+                                @endif
+                                >Dubai</option>
+                            <option value="Qatar" @if(Auth::user()->adminData->country == "Qatar")
+                                selected
+                                @endif
+                                >Qatar</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Registration number
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->reg}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="number" name="reg" required>
+                </div>
+            </div>
+
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Business Name
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->business}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="business" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Industry
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->industry}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="industry" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Business Address
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->bus_add}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="bus_add" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-6">
+                <div class="md:w-1/2">
+                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                        Contact number
+                    </label>
+                </div>
+                <div class="md:w-2/3">
+                    <input value="{{Auth::user()->adminData->contact}}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" placeholder="" name="contact" required>
+                </div>
+            </div>
+            <div class="md:flex md:items-center mb-4">
+                <div class="md:w-1/3"></div>
+                <div class="md:w-2/3">
+                    <button type="submit" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     @else
     @if(Auth::user()->third)
     @if(Auth::user()->third->is_completed)
@@ -16,6 +259,7 @@
     </div>
     @endif
     @endif
+    @if(!Auth::user()->request_admin)
     <div class="mt-4">
         @if(Auth::user()->confirmed)
         <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
@@ -177,6 +421,7 @@
         <h1 class="text-center mt-3" style="display:none" id="load">
             Loading.....</h1>
     </div>
+    @endif
     @endif
     <script>
         function myFunction() {

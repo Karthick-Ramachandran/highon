@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDataController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FirstController;
@@ -94,6 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/newapp', [ApplicationController::class, 'post']);
     Route::get('/complete/payment/new', [ApplicationController::class, 'complete']);
     Route::post('/payments/new', [ApplicationController::class, 'payment']);
+    Route::post('/admin/data', [AdminDataController::class, 'create']);
 
     Route::get('/edit/step/two', function () {
         if (Second::where('user_id', Auth::user()->id)->exists()) {
