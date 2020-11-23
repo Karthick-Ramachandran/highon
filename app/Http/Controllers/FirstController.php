@@ -62,7 +62,7 @@ class FirstController extends Controller
             'title' => 'Welcome to Jobs on High, Happy to have you',
             'body' => 'Please wait till your application gets approved'
         ];
-        $request->session()->flash('success', "Request sent");
+        $request->session()->flash('success', "Request sent, Please fill all the details below to get approved");
 
         Mail::to(Auth::user()->email)->send(new Greet($details));
         return redirect('/dashboard');
