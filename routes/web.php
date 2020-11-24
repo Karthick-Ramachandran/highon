@@ -6,8 +6,10 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FirstController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SecondCompleteController;
 use App\Http\Controllers\SecondController;
+use App\Models\Application;
 use App\Models\Payment;
 use App\Models\Qualification;
 use App\Models\Second;
@@ -138,6 +140,25 @@ Route::post('payment', [PaymentsController::class, 'payment'])->name('payment');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/dashboard', function () {
-        return view('admin.dash');
+        return view('layouts.admin');
     });
+
+    Route::get('/singapore', function () {
+        $users = Application::where('country', '=', "Singapore")->where('is_completed', 1)->paginate(27);
+        // return response()->json($users);
+        return view('admin.singapore')->with('users', $users);
+    })->name('singapore');
+    Route::get('/dubai', function () {
+        $users = Application::where('country', '=', "Dubai")->where('is_completed', 1)->paginate(27);
+        return view('admin.dubai')->with('users', $users);
+    })->name('dubai');
+    Route::get('/malaysia', function () {
+        $users = Application::where('country', '=', "Malaysia")->where('is_completed', 1)->paginate(27);
+        return view('admin.malaysia')->with('users', $users);
+    })->name('malaysia');
+    Route::get('/qatar', function () {
+        $users = Application::where('country', '=', "Qatar")->where('is_completed', 1)->paginate(27);
+        return view('admin.qatar')->with('users', $users);
+    })->name('qatar');
+    // Route::post('/search/emp', [SearchController::class, 'search']);
 });

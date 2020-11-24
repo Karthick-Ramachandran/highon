@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Auth;
 
 class SuperAdmin
 {
@@ -16,6 +17,16 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if (Auth::check()) {
+            if (Auth::user()->is_super_admin) {
+                return $next($request);
+            } else {
+                $request->session()->flash('message', "Failed");
+                return redirect('/dashboard');
+            }
+        } else {
+            $request->session()->flash('message', "Login required");
+            return redirect('/login');
+        }
     }
 }
