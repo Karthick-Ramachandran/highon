@@ -27,7 +27,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
                 </div>
                 <div class="sidebar-brand-text mx-3">Jobs On high</div>
@@ -51,12 +51,22 @@
                 Users by country
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('singapore') }}">
-                    <i class="fa fa-globe"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsecoun" aria-expanded="true" aria-controls="collapsecoun">
+                    <i class="fas fa-globe"></i>
                     <span>Singapore</span>
                 </a>
+                <div id="collapsecoun" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Permit:</h6>
+                        <a class="collapse-item" href="/admin/singapore/low">Low level work</a>
+                        <a class="collapse-item" href="/admin/singapore/High">High level work</a>
+                        <a class="collapse-item" href="/admin/singapore/epass">EPASS / SPASS</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+
                 <a class="nav-link" href="{{ route('dubai') }}">
                     <i class="fa fa-address-card"></i>
                     <span>Dubai</span>
@@ -69,7 +79,7 @@
                 </a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+            @if(Auth::user()->is_super_admin)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
@@ -78,14 +88,14 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Settings:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Approve Employers</a>
-                        <a class="collapse-item" href="utilities-border.html">Create Admin</a>
-                        <a class="collapse-item" href="utilities-border.html">Create Coupons</a>
-                        <a class="collapse-item" href="utilities-animation.html">Change Payment</a>
-                        <a class="collapse-item" href="utilities-animation.html">Contacts</a>
+                        <a class="collapse-item" href="{{ route('requestadmin') }}">Approve Employers</a>
+                        <a class="collapse-item" href="{{ route('coupons') }}">Create Coupons</a>
+                        <a class="collapse-item" href="{{ route('changepay') }}">Change Payment</a>
+                        <a class="collapse-item" href="{{ url('/admin/contacts/frontend') }}">Contacts</a>
                     </div>
                 </div>
             </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -125,16 +135,9 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="container">
+                        <h4>Admin Panel</h4>
+                    </div>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -180,6 +183,25 @@
 
                 <!-- Begin Page Content -->
                 <div class="container">
+                    <div class="mt-2 mb-3">
+                        @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                        @endif
+                        @if(Session::has('message'))
+                        <div class="alert alert-danger">
+                            {{ Session::get('message') }}
+                        </div>
+                        @endif
+                        @if($errors->any())
+                        @foreach($errors->all as $error)
+                        <div class="alert alert-danger">
+                            {{ $error }}
+                        </div>
+                        @endforeach
+                        @endif
+                    </div>
                     @yield('content')
                 </div>
                 <!-- /.container-fluid -->

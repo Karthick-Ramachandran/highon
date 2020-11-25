@@ -99,12 +99,17 @@
 </head>
 
 <body>
-    <form class="form">
+    @if(Session::has('success'))
+    <h1 style="text-align: center; color: white">{{ Session::get('success') }}</h1>
+    @endif
+
+    <form class="form" method="POST" action="/post/contact">
+        @csrf
         <h2>CONTACT US</h2>
-        <p type="Name:"><input placeholder="Write your name here.."></input></p>
-        <p type="Email:"><input placeholder="Email to call you back.."></input></p>
-        <p type="Message:"><input placeholder="What would you like to tell us.."></input></p>
-        <button>Send Message</button>
+        <p type="Name:"><input placeholder="Write your name here.." name="name" required></input></p>
+        <p type="Email:"><input placeholder="Email to call you back.." name="email" required></input></p>
+        <p type="Message:"><input placeholder="What would you like to tell us.." name="message" required></input></p>
+        <button type="submit">Send Message</button>
     </form>
 </body>
 

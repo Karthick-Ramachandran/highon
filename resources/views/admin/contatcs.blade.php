@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-center">
-    <h2>Search Employees in Malaysia</h2>
+    <h2>Search Employees in Dubai</h2>
 </div>
 
 <!-- <div class="row justify-content-center mb-3 mt-3">
@@ -24,18 +24,9 @@
     <div class="col-xl-4 col-ls-4 col-md-6 col-sm-12 col-xs-12">
         <div class="card mt-2">
             <div class="card-body">
-                <h4 class="card-title">{{ $user->user->second->firstName }} {{ $user->user->second->surname }}</h4>
-                <h6> <span style="font-weight: bold">Looking for: </span> {{ $user->position }}</h6>
-
-                @if($user->user->second->exp)
-                <button class=" mb-2 btn btn-warning">Experienced</button>
-                @else
-                <button class=" mb-2 btn btn-danger">Fresher</button>
-
-                @endif
-                <div class="card-description">
-                    <a href="{{ route('detailspage', ['id' => $user->user->id]) }}" class="btn btn-primary">View Details</a>
-                </div>
+                <h4 class="card-title">{{ $user->name }}</h4>
+                <h6> <span style="font-weight: bold">Email: </span> {{ $user->email }}</h6>
+                <h6> <span style="font-weight: bold">Message: </span> {{ $user->message }}</h6>
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->is_admin) {
+            if (Auth::user()->is_admin || Auth::user()->is_super_admin) {
                 return $next($request);
             } else {
                 $request->session()->flash('message', "Failed");

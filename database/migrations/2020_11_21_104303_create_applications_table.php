@@ -19,6 +19,8 @@ class CreateApplicationsTable extends Migration
             $table->string('country');
             $table->string('permit')->nullable();
             $table->text('position');
+            $table->integer('amount')->default(0);
+            $table->boolean('is_coupon_code_applied')->default(0);
             $table->boolean('is_completed')->default(0);
             $table->timestamps();
         });

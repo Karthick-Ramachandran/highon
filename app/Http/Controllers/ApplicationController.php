@@ -37,8 +37,9 @@ class ApplicationController extends Controller
         if (Auth::user()->third) {
             if (Auth::user()->third->is_completed) {
                 if (Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->exists()) {
+                    $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->first();
                     $app = Payment::where('id', '!=', 0)->first();
-                    return view('apply.pay')->with('app', $app);
+                    return view('apply.pay')->with('app', $app)->with('application', $application);
                 } else {
                     return redirect('/dashboard');
                 }
@@ -60,11 +61,13 @@ class ApplicationController extends Controller
             $request->session()->flash('success', "You already applied for " . $request->country);
             return redirect()->back();
         } else {
+            $payment = Payment::where('id', '!=', 0)->first();
             $application = new Application;
             $application->user_id = Auth::user()->id;
             $application->country = $request->country;
             $application->permit = $request->permit;
             $application->position = $request->position;
+            $application->amount = $payment->payment;
             $application->save();
             $request->session()->flash('success', "Saved");
             return redirect('/complete/payment/new');

@@ -262,6 +262,7 @@
     @if(!Auth::user()->request_admin)
     <div class="mt-4">
         @if(Auth::user()->confirmed)
+        @if(!Auth::user()->is_super_admin)
         <div class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             <div class="max-w-sm rounded overflow-hidden shadow-lg mb-4">
                 <img class="w-full" src="{{ asset('step1.png') }}" alt="Sunset in the mountains">
@@ -396,7 +397,7 @@
             </div>
 
         </div>
-
+        @endif
         @else
         <div id="admin" class="grid justify-items-center grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1">
             <h1 class="text-center">Who you're ?</h1>

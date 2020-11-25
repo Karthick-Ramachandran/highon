@@ -20,6 +20,11 @@
                         Employee list
                     </x-jet-nav-link>
                     @endif
+                    @if(Auth::user()->is_super_admin)
+                    <x-jet-nav-link href="{{ url('/admin/dashboard') }}">
+                        Admin dashboard
+                    </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -126,6 +131,11 @@
             @if(Auth::user()->is_admin)
             <x-jet-responsive-nav-link href="{{ url('/admin/dashboard') }}">
                 Employee list
+            </x-jet-responsive-nav-link>
+            @endif
+            @if(Auth::user()->is_super_admin)
+            <x-jet-responsive-nav-link href="{{ url('/admin/dashboard') }}">
+                Admin dashboard
             </x-jet-responsive-nav-link>
             @endif
         </div>

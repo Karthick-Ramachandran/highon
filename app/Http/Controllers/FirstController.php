@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\Greet;
 use App\Models\AdminData;
 use App\Models\Application;
+use App\Models\Payment;
 
 class FirstController extends Controller
 {
@@ -26,6 +27,7 @@ class FirstController extends Controller
 
             return redirect()->back();
         } else {
+            $payment = Payment::where('id', '!=', 0)->first();
             $app = new First;
             $app->user_id = Auth::user()->id;
             $app->country = $request->country;
@@ -41,6 +43,7 @@ class FirstController extends Controller
             $application->country = $request->country;
             $application->permit = $request->permit;
             $application->position = $request->position;
+            $application->amount = $payment->payment;
             $application->save();
             $request->session()->flash('success', "Saved");
             return redirect('/dashboard');

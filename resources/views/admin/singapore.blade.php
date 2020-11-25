@@ -25,8 +25,15 @@
         <div class="card mt-2">
             <div class="card-body">
                 <h4 class="card-title">{{ $user->user->second->firstName }} {{ $user->user->second->surname }}</h4>
+                <h6> <span style="font-weight: bold">Looking for: </span> {{ $user->position }}</h6>
+                @if($user->user->second->exp)
+                <button class=" mb-2 btn btn-warning">Experienced</button>
+                @else
+                <button class=" mb-2 btn btn-danger">Fresher</button>
+
+                @endif
                 <div class="card-description">
-                    <a href="" class="btn btn-primary">View Details</a>
+                    <a href="{{ route('detailspage', ['id' => $user->user->id]) }}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
         </div>

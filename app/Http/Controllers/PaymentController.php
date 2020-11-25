@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
+
 
 
     public function edit(Request $request)
@@ -19,5 +16,6 @@ class PaymentController extends Controller
         $data->payment = $request->payment;
         $data->save();
         $request->session()->flash('success', "Edited");
+        return redirect()->back();
     }
 }

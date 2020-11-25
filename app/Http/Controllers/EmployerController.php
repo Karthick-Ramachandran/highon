@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Session;
 
 class EmployerController extends Controller
 {
@@ -29,7 +30,23 @@ class EmployerController extends Controller
             'body' => 'We are happy to welcome you'
         ];
         Mail::to($request->email)->send(new Greet($details));
-        $request->session()->flash('success', $request->name . " your registeration was successful, Login to continue");
+        $request->session()->flash('success', $request->name . " your registration was successful, Login to continue");
         return redirect('/login');
+    }
+
+    public function approve($id)
+    {
+        $app = User::find($id);
+
+        $app->request_admin = 0;
+        $app->is_admin = 1;
+        $app->save();
+        $details = [
+            'title' => 'Hello' . $app->name,
+            'body' => 'Your request for employer registration is approved. Start hiring!!!'
+        ];
+        Mail::to($app->email)->send(new Greet($details));
+        Session::flash('success', "Approved");
+        return redirect('/admin/approve/employer');
     }
 }

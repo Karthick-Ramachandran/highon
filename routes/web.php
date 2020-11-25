@@ -2,17 +2,24 @@
 
 use App\Http\Controllers\AdminDataController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\FirstController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SecondCompleteController;
 use App\Http\Controllers\SecondController;
+use App\Models\AdminData;
 use App\Models\Application;
+use App\Models\Contact;
+use App\Models\Coupon;
 use App\Models\Payment;
 use App\Models\Qualification;
 use App\Models\Second;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +47,7 @@ Route::get('/contact', function () {
 Route::get('/employer/register', function () {
     return view('employer');
 });
+Route::post('/post/contact', [ContactController::class, 'send']);
 
 Route::post('/employer', [EmployerController::class, 'post']);
 
@@ -108,8 +116,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::post('/editstep', [SecondController::class, 'edit']);
     Route::get('/payment', function () {
+        $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->first();
         $app = Payment::where('id', '!=', 0)->first();
-        return view('payment')->with('app', $app);
+        return view('payment')->with('app', $app)->with('application', $application);
     });
 
     Route::get('/add/exp', function () {
@@ -137,15 +146,24 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('payment-razorpay', [PaymentsController::class, 'create'])->name('paywithrazorpay');
 Route::post('payment', [PaymentsController::class, 'payment'])->name('payment');
+Route::get('/terms-and-conditions', function () {
+    return view('terms');
+});
+
+Route::get('/privacy-policy', function () {
+    return view('privacy');
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/dashboard', function () {
-        return view('layouts.admin');
+        $users = User::where('is_admin', 0)->where('is_super_admin', 0)->where('request_admin', 0)->get();
+        $company = AdminData::count();
+
+        return view('admin.dash')->with('users', $users)->with('company', $company);
     });
 
-    Route::get('/singapore', function () {
-        $users = Application::where('country', '=', "Singapore")->where('is_completed', 1)->paginate(27);
-        // return response()->json($users);
+    Route::get('/singapore/{pass}', function ($pass) {
+        $users = Application::where('country', '=', "Singapore")->where('permit', '=', $pass)->where('is_completed', 1)->paginate(27);
         return view('admin.singapore')->with('users', $users);
     })->name('singapore');
     Route::get('/dubai', function () {
@@ -160,5 +178,44 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         $users = Application::where('country', '=', "Qatar")->where('is_completed', 1)->paginate(27);
         return view('admin.qatar')->with('users', $users);
     })->name('qatar');
-    // Route::post('/search/emp', [SearchController::class, 'search']);
+
+    Route::get('/users/{id}', function ($id) {
+        $users = User::where('id', $id)->first();
+        $qual = Qualification::where('user_id', $users->id)->paginate(3);
+        return view('admin.view')->with('users', $users)->with('qual', $qual);
+    })->name('detailspage');
+    Route::get('/search/emp', [SearchController::class, 'search']);
+});
+
+
+Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
+    Route::get('/coupons', function () {
+        $coupon = Coupon::paginate(9);
+        return view('admin.coupon')->with('coupon', $coupon);
+    })->name('coupons');
+
+    Route::post('/coupon', [CouponController::class, 'post'])->name('createcoupon');
+    Route::get('/coupon/{id}', [CouponController::class, 'delete'])->name('deletecoupon');
+    Route::get('/change/payment', function () {
+        $pay = Payment::where('id', '!=', 0)->first();
+        return view('admin.changepay')->with('pay', $pay);
+    })->name('changepay');
+    Route::post('/post/payment', [PaymentController::class, 'edit'])->name('changepayment');
+    Route::get('/approve/employer', function () {
+        // $users = User::where('request_admin', 1)->where('dont_show', 0)->paginate(27);
+        $users = User::where('request_admin', 1)->paginate(27);
+
+        return view('admin.request')->with('users', $users);
+    })->name('requestadmin');
+
+    Route::get('/employer/details/{id}', function ($id) {
+        $users = User::where('id', $id)->first();
+        return view('admin.viewdetails')->with('users', $users);
+    })->name('employerdata');
+
+    Route::get('/approveemployer/{id}', [EmployerController::class, 'approve'])->name('approveemployer');
+    Route::get('/contacts/frontend', function () {
+        $users = Contact::all();
+        return view('admin.contacts')->with('users', $users);
+    });
 });

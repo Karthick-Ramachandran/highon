@@ -7,9 +7,11 @@
                     Please finish the payment to complete registration process
                 </div>
                 <p class="text-gray-700 text-base">
-                    Your Payment is secured with Razor Pay
+                    Your Payment is secured with us
                 </p>
             </div>
+            @if($application->is_coupon_code_applied)
+            @else
             <div class="md:flex ml-3 md:items-center mb-6">
                 <div class="md:w-2/2">
                     <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
@@ -18,16 +20,16 @@
 
                 </div>
                 <div>
-                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" value="" placeholder="Promotoion code if you have one" name="surname">
-
+                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" value="" placeholder="Type and press enter" name="surname">
                 </div>
             </div>
+            @endif
             <div class="px-6 pt-4 pb-2">
-                <button class="inline-block bg-black rounded-full px-3 py-1 text-ls font-semibold text-white mr-2 mb-2" onclick="submit()" id="dis">Proceed to pay {{ $app->payment }}rs</button>
+                <button class="inline-block bg-black rounded-full px-3 py-1 text-ls font-semibold text-white mr-2 mb-2" onclick="submit()" id="dis">Proceed to pay {{ $application->amount }}rs</button>
 
                 <form action="{{ route('payment') }}" method="POST">
                     @csrf
-                    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_pU1TmRxWlDOGjS" data-amount="{{ $app->payment }}00" data-prefill.name="{{ Auth::user()->name }}" data-prefill.email="{{ Auth::user()->email }}" data-theme.color="#ff7529">
+                    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_pU1TmRxWlDOGjS" data-amount="{{ $application->amount }}00" data-prefill.name="{{ Auth::user()->name }}" data-prefill.email="{{ Auth::user()->email }}" data-theme.color="#ff7529">
                     </script>
                 </form>
             </div>
@@ -35,7 +37,7 @@
     </div>
 
     <script>
-        var cost = "{{ $app->payment }}";
+        var cost = "{{ $application->amount }}";
         var data = document.getElementsByClassName('razorpay-payment-button');
         document.getElementById('dis').innerHTML = `Proceed to pay ${cost}rs`;
 
