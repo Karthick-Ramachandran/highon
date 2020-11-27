@@ -64,6 +64,8 @@ Route::group(['middleware' => 'auth'], function () {
             return view('step.stepone');
         }
     });
+    Route::post('/apply/coupon', [CouponController::class, 'applycoupon'])->name('couponapply');
+
     Route::post('/confirm', [FirstController::class, 'confirm']);
     Route::post('/confirm/candidate', [FirstController::class, 'confirmCan']);
 
@@ -188,6 +190,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 });
 
 
+
 Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
     Route::get('/coupons', function () {
         $coupon = Coupon::paginate(9);
@@ -203,7 +206,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
     Route::post('/post/payment', [PaymentController::class, 'edit'])->name('changepayment');
     Route::get('/approve/employer', function () {
         // $users = User::where('request_admin', 1)->where('dont_show', 0)->paginate(27);
-        $users = User::where('request_admin', 1)->paginate(27);
+        $users = User::where('request_admin', 1)->where('dont_show', 0)->paginate(27);
 
         return view('admin.request')->with('users', $users);
     })->name('requestadmin');
@@ -218,4 +221,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
         $users = Contact::paginate(27);
         return view('admin.contatcs')->with('users', $users);
     });
+    Route::post('/ignore/user/{id}', [EmployerController::class, 'ignore'])->name('ignoreuser');
+    Route::get('/employer/list', function () {
+        // $users = User::where('request_admin', 1)->where('dont_show', 0)->paginate(27);
+        $users = User::where('request_admin', 0)->where('is_admin', 1)->where('dont_show', 0)->paginate(27);
+
+        return view('admin.employerslist')->with('users', $users);
+    })->name('list');
 });

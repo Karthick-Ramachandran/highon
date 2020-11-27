@@ -49,4 +49,13 @@ class EmployerController extends Controller
         Session::flash('success', "Approved");
         return redirect('/admin/approve/employer');
     }
+
+    public function ignore($id)
+    {
+        $app = User::where('id', $id)->first();
+        $app->dont_show = 1;
+        $app->save();
+        Session::flash('success', "Hidden");
+        return redirect('/admin/dashboard');
+    }
 }

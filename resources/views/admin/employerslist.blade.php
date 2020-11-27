@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-center">
-    <h2>Employer Requests</h2>
+    <h2>All Companies</h2>
 </div>
 
 <!-- <div class="row justify-content-center mb-3 mt-3">
