@@ -215,7 +215,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
 
     Route::get('/approveemployer/{id}', [EmployerController::class, 'approve'])->name('approveemployer');
     Route::get('/contacts/frontend', function () {
-        $users = Contact::all();
-        return view('admin.contacts')->with('users', $users);
+        $users = Contact::paginate(27);
+        return view('admin.contatcs')->with('users', $users);
     });
 });
