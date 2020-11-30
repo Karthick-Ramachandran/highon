@@ -5,18 +5,14 @@
     <h2>Search Employees in Malaysia</h2>
 </div>
 
-<!-- <div class="row justify-content-center mb-3 mt-3">
-    <form>
+<div class="row justify-content-center mb-3 mt-3">
+    <form method="GET" action="{{ route('countrysearch', ['country' => 'Malaysia']) }}">
         <div class="input-group">
-            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
+            <input type="text" name="position" class="form-control bg-light" placeholder="Type designation and enter" aria-label="Search" aria-describedby="basic-addon2">
+
         </div>
     </form>
-</div> -->
+</div>
 
 
 <div class="row justify-content-center">

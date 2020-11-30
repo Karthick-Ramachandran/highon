@@ -40,6 +40,10 @@
                         <div class="row justify-content-center mt-2">
                             <a href="{{ route('deletecoupon', ['id' => $coupons->id]) }}" class="btn btn-danger">Delete</a>
                         </div>
+                        <div class="row justify-content-center mt-2">
+                            <a href="{{ route('couponcount', ['id' => $coupons->id]) }}" class="btn btn-success">Applied count</a>
+                        </div>
+
                     </div>
                 </div>
             </div>

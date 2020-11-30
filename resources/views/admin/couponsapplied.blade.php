@@ -2,17 +2,21 @@
 
 @section('content')
 <div class="text-center">
-    <h2>Search Employees in Qatar</h2>
+    <h2>Users paid with coupon code</h2>
 </div>
 
-<div class="row justify-content-center mb-3 mt-3">
-    <form method="GET" action="{{ route('countrysearch', ['country' => 'Qatar']) }}">
+<!-- <div class="row justify-content-center mb-3 mt-3">
+    <form>
         <div class="input-group">
-            <input type="text" name="position" class="form-control bg-light" placeholder="Type designation and enter" aria-label="Search" aria-describedby="basic-addon2">
-
+            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
         </div>
     </form>
-</div>
+</div> -->
 
 
 <div class="row justify-content-center">
@@ -23,25 +27,12 @@
         <div class="card mt-2">
             <div class="card-body">
                 <h4 class="card-title">{{ $user->user->second->firstName }} {{ $user->user->second->surname }}</h4>
-                <h6> <span style="font-weight: bold">Looking for: </span> {{ $user->position }}</h6>
-
-                @if($user->user->second->exp)
-                <button class=" mb-2 btn btn-warning">Experienced</button>
-                @else
-                <button class=" mb-2 btn btn-danger">Fresher</button>
-
-                @endif
+                <h6> <span style="font-weight: bold">Applied coupon: </span> {{ $user->applied_coupon }}</h6>
+                <h6> <span style="font-weight: bold"></span> {{ $user->applied_coupon }}</h6>
                 <div class="card-description">
                     <a href="{{ route('detailspage', ['id' => $user->user->id]) }}" class="btn btn-primary">View Details</a>
                 </div>
-                @if(Auth::user()->is_super_admin)
-                <form class="mt-3" action="{{ route('ignoreuser', ['id' => $user->user->id]) }}" method="POST">
-                    @csrf
-                    <div class="card-description">
-                        <button type="submit" class="btn btn-primary">Hide</button>
-                    </div>
-                </form>
-                @endif
+
             </div>
         </div>
     </div>

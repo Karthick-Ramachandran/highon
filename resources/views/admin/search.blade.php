@@ -5,18 +5,6 @@
     <h2>Search Results</h2>
 </div>
 
-<!-- <div class="row justify-content-center mb-3 mt-3">
-    <form>
-        <div class="input-group">
-            <input type="text" class="form-control bg-light" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-</div> -->
 
 
 <div class="row justify-content-center">

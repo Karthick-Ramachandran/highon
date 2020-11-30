@@ -43,6 +43,7 @@ class CouponController extends Controller
                 $cou = Coupon::where('coupon_code', '=', $request->coupon_code)->first();
                 $app->amount = $app->amount - $cou->amount;
                 $app->is_coupon_code_applied = 1;
+                $app->applied_coupon = $request->coupon_code;
                 $app->save();
                 $request->session()->flash('success', "Coupon Applied Successfully");
                 return redirect()->back();

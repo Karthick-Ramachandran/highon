@@ -186,7 +186,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         $qual = Qualification::where('user_id', $users->id)->paginate(3);
         return view('admin.view')->with('users', $users)->with('qual', $qual);
     })->name('detailspage');
-    Route::get('/search/emp', [SearchController::class, 'search']);
+    Route::get('/search/emp/{country}', [SearchController::class, 'search'])->name('countrysearch');
 });
 
 
@@ -228,4 +228,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
 
         return view('admin.employerslist')->with('users', $users);
     })->name('list');
+
+
+    Route::get('/paid/using/coupons', function () {
+        $users = Application::where('is_coupon_code_applied', 1)->paginate(27);
+        return view('admin.couponsapplied')->with('users', $users);
+    })->name('paidusing');
+
+    Route::get('/paid/coupon/count/{id}', function ($id) {
+        $users = Coupon::where('id', $id)->first();
+        return view('admin.count')->with('users', $users);
+    })->name('couponcount');
 });
