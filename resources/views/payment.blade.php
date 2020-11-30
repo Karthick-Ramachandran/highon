@@ -33,7 +33,7 @@
 
                 <form action="{{ route('payment') }}" method="POST">
                     @csrf
-                    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_pU1TmRxWlDOGjS" data-amount="{{ $application->amount }}00" data-prefill.name="{{ Auth::user()->name }}" data-prefill.email="{{ Auth::user()->email }}" data-theme.color="#ff7529">
+                    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_live_yLTTpZJyL1x1a3" data-amount="{{ $application->amount }}00" data-buttontext="Pay 1 INR" data-name="Jobs on High" data-description="Paying for High on Jobs Registration" data-image="{{ asset('pay.jpeg') }}" data-prefill.name="{{ Auth::user()->name }}" data-prefill.email="{{ Auth::user()->email }}" data-theme.color="#FF5733">
                     </script>
                 </form>
             </div>
