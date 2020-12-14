@@ -57,7 +57,7 @@ class ApplicationController extends Controller
             "position" => 'required',
             "country" => 'required'
         ]);
-        if (Application::where('country', $request->country)->exists()) {
+        if (Application::where('country', $request->country)->where('user_id', Auth::user()->id)->exists()) {
             $request->session()->flash('success', "You already applied for " . $request->country);
             return redirect()->back();
         } else {
