@@ -36,6 +36,8 @@ class FirstController extends Controller
             } else {
                 $app->permit = "";
             }
+            $app->sub = $request->sub;
+
             $app->position = $request->position;
             $app->save();
             $application = new Application;
@@ -43,6 +45,8 @@ class FirstController extends Controller
             $application->country = $request->country;
             $application->permit = $request->permit;
             $application->position = $request->position;
+            $application->sub = $request->sub;
+
             $application->amount = $payment->payment;
             $application->save();
             $request->session()->flash('success', "Saved");

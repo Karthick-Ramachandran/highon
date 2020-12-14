@@ -19,6 +19,7 @@ use App\Models\Coupon;
 use App\Models\Payment;
 use App\Models\Qualification;
 use App\Models\Second;
+use App\Models\Sub;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 /*
@@ -58,10 +59,14 @@ Route::group(['middleware' => 'auth'], function () {
                 Session::flash('message', 'Not valid');
                 return redirect()->back();
             } else {
-                return view('step.stepone');
+                $users = Sub::all();
+
+                return view('step.stepone')->with('users', $users);
             }
         } else {
-            return view('step.stepone');
+            $users = Sub::all();
+
+            return view('step.stepone')->with('users', $users);
         }
     });
     Route::post('/apply/coupon', [CouponController::class, 'applycoupon'])->name('couponapply');
@@ -239,4 +244,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
         $users = Coupon::where('id', $id)->first();
         return view('admin.count')->with('users', $users);
     })->name('couponcount');
+
+    Route::get('/subs', function () {
+        $users = Sub::where('id', "!=", 0)->paginate(27);
+        return view('admin.createsub')->with('users', $users);
+    })->name('craetesub');
+
+    Route::post('/subs', [EmployerController::class, 'addSubs'])->name('test');
+
+    Route::get('/delete/subs/{id}', [EmployerController::class, 'deleteSubs'])->name('test2');
 });

@@ -59,8 +59,8 @@
                 <div id="collapsecoun" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Permit:</h6>
-                        <a class="collapse-item" href="/admin/singapore/low">Low level work</a>
-                        <a class="collapse-item" href="/admin/singapore/High">High level work</a>
+                        <a class="collapse-item" href="/admin/singapore/low">Low levy work</a>
+                        <a class="collapse-item" href="/admin/singapore/High">High levy work</a>
                         <a class="collapse-item" href="/admin/singapore/epass">EPASS / SPASS</a>
                     </div>
                 </div>
@@ -94,6 +94,7 @@
                         <a class="collapse-item" href="{{ route('paidusing') }}">Coupon Payments</a>
                         <a class="collapse-item" href="{{ route('changepay') }}">Change Payment</a>
                         <a class="collapse-item" href="{{ url('/admin/contacts/frontend') }}">Contacts</a>
+                        <a class="collapse-item" href="{{ url('/admin/subs') }}">Add Sub Job Category</a>
 
                     </div>
                 </div>

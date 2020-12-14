@@ -68,6 +68,8 @@ class ApplicationController extends Controller
             $application->permit = $request->permit;
             $application->position = $request->position;
             $application->amount = $payment->payment;
+            $application->sub = $payment->sub;
+
             $application->save();
             $request->session()->flash('success', "Saved");
             return redirect('/complete/payment/new');

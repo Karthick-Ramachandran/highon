@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Greet;
+use App\Models\Sub;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -57,5 +58,24 @@ class EmployerController extends Controller
         $app->save();
         Session::flash('success', "Hidden");
         return redirect('/admin/dashboard');
+    }
+
+    public function addSubs(Request $request)
+    {
+        $app = new Sub;
+
+        $app->subs = $request->subs;
+
+        $app->save();
+        Session::flash('success', "Saved");
+        return redirect('/admin/subs');
+    }
+
+    public function deleteSubs($id)
+    {
+        $app = Sub::find($id);
+        $app->delete();
+        Session::flash('success', "Deleted");
+        return redirect('/admin/subs');
     }
 }

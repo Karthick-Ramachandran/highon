@@ -107,8 +107,7 @@
                         <input type="number" value="{{ Auth::user()->complete->phone }}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Phone" name="phone" required>
                     </div>
                 </div>
-                @if(Auth::user()->complete->passport == "" || Auth::user()->complete->passport == null)
-                @else
+                @if(Auth::user()->complete->passport == "" || Auth::user()->complete->passport == NULL)
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/2">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
@@ -119,9 +118,9 @@
                         <input value="{{ Auth::user()->complete->passport }}" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Passport" name="passport" required>
                     </div>
                 </div>
-                @endif
-                @if(Auth::user()->complete->copy == "" || Auth::user()->complete->copy == null)
                 @else
+                @endif
+                @if(Auth::user()->complete->copy == "" || Auth::user()->complete->copy == NULL)
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/2">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
@@ -132,6 +131,8 @@
                         <input type="file" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4= text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Passport copy" name="copy" accept="application/pdf">
                     </div>
                 </div>
+                @else
+
                 @endif
                 <div class=" md:flex md:items-center mb-6">
                     <div class="md:w-1/2">
