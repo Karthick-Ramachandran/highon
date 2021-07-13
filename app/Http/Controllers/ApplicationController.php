@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 use Razorpay\Api\Api;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Greet;
-
 use Auth;
 use Session;
+use App\Models\Sub;
+
 
 class ApplicationController extends Controller
 {
@@ -22,7 +23,8 @@ class ApplicationController extends Controller
                     Session::flash('message', "Please complete the payment for your previous application");
                     return redirect('complete/payment/new');
                 } else {
-                    return view('apply.new');
+                    $users = Sub::all();
+                    return view('apply.new')->with('users', $users);
                 }
             } else {
 
@@ -68,7 +70,8 @@ class ApplicationController extends Controller
             $application->permit = $request->permit;
             $application->position = $request->position;
             $application->amount = $payment->payment;
-            $application->sub = $payment->sub;
+                      $application->sub = $request->sub;
+
 
             $application->save();
             $request->session()->flash('success', "Saved");
