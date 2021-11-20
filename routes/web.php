@@ -16,6 +16,7 @@ use App\Models\AdminData;
 use App\Models\Application;
 use App\Models\Contact;
 use App\Models\Coupon;
+use App\Models\First;
 use App\Models\Payment;
 use App\Models\Qualification;
 use App\Models\Second;
@@ -53,6 +54,15 @@ Route::post('/post/contact', [ContactController::class, 'send']);
 Route::post('/employer', [EmployerController::class, 'post']);
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::post('/cancel/app', function () {
+        $app = Application::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+        $app->delete();
+        $firsts = First::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+        $firsts->delete();
+        return redirect('/step/one');
+    });
+
     Route::get('/step/one', function () {
         if (Auth::user()->first) {
             if (Auth::user()->first->is_completed) {

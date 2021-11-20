@@ -101,11 +101,7 @@ class ApplicationController extends Controller
         $app = Application::where("user_id", Auth::user()->id)->where('is_completed', 0)->first();
         $app->is_completed = 1;
         $app->save();
-        $details = [
-            'title' => 'Congrats',
-            'body' => 'Your payment is complete'
-        ];
-        Mail::to(Auth::user()->email)->send(new Greet($details));
+
         return redirect('/dashboard');
     }
 }

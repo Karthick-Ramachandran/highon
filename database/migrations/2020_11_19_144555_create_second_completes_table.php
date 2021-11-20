@@ -26,6 +26,8 @@ class CreateSecondCompletesTable extends Migration
             $table->text('mailing_add')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->string('country_code')->nullable();
+            $table->string('cv')->nullable();
             $table->string('passport')->nullable();
             $table->text('copy')->nullable();
             $table->text('photo')->nullable();

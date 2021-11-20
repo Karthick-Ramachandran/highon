@@ -18,12 +18,7 @@ class ContactController extends Controller
         $app->email = $request->email;
         $app->message = $request->message;
         $app->save();
-        $details = [
-            'title' => 'Thank you for reaching out to Jobs on High',
-            'body' => 'Your query will be answered within in 48 hours'
-        ];
 
-        Mail::to($request->email)->send(new Greet($details));
 
         $request->session()->flash('success', "Your Request sent, Thank you");
 

@@ -19,7 +19,8 @@ class SecondCompleteController extends Controller
             "phone" => 'required|min:10',
             "photo" => 'required|image',
             "passport" => 'required',
-            "copy" => 'required'
+            "copy" => 'required',
+            "country_code" => 'required',
         ]);
 
         $app = SecondComplete::where('user_id', Auth::user()->id)->first();
@@ -34,6 +35,8 @@ class SecondCompleteController extends Controller
         $app->mailing_add = $request->mailing_add;
         $app->email = $request->email;
         $app->phone = $request->phone;
+        $app->country_code = $request->country_code;
+
         $app->passport = $request->passport;
         $image = $request->copy;
         $image_new_name = time() . $image->getClientOriginalName();
@@ -44,6 +47,13 @@ class SecondCompleteController extends Controller
         $imageup->move('books', $imageup_new_name);
         $app->photo = $imageup_new_name;
         $app->is_completed = 1;
+
+
+        $cv = $request->cv;
+        $cv_new_name = time() . $cv->getClientOriginalName();
+        $cv->move('cv', $cv_new_name);
+        $app->cv = $cv_new_name;
+
 
         $app->save();
         $data = Second::where('user_id', Auth::user()->id)->first();

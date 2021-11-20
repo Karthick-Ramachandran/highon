@@ -26,11 +26,7 @@ class EmployerController extends Controller
         $app->password = Hash::make($request->password);
         $app->is_admin = 0;
         $app->save();
-        $details = [
-            'title' => 'Welcome to Jobs on High',
-            'body' => 'We are happy to welcome you'
-        ];
-        Mail::to($request->email)->send(new Greet($details));
+
         $request->session()->flash('success', $request->name . " your registration was successful, Login to continue");
         return redirect('/login');
     }
@@ -42,11 +38,7 @@ class EmployerController extends Controller
         $app->request_admin = 0;
         $app->is_admin = 1;
         $app->save();
-        $details = [
-            'title' => 'Hello' . $app->name,
-            'body' => 'Your request for employer registration is approved. Start hiring!!!'
-        ];
-        Mail::to($app->email)->send(new Greet($details));
+
         Session::flash('success', "Approved");
         return redirect('/admin/approve/employer');
     }

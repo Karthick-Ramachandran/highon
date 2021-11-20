@@ -53,11 +53,7 @@ class PaymentsController extends Controller
         $app->is_completed = 1;
         $app->save();
         $payme->save();
-        $details = [
-            'title' => 'Congrats',
-            'body' => 'Your payment is complete'
-        ];
-        Mail::to(Auth::user()->email)->send(new Greet($details));
+
         return redirect('/dashboard');
     }
 }

@@ -65,13 +65,7 @@ class FirstController extends Controller
         $admin = new AdminData;
         $admin->user_id  = Auth::user()->id;
         $admin->save();
-        $details = [
-            'title' => 'Welcome to Jobs on High, Happy to have you',
-            'body' => 'Please wait till your application gets approved'
-        ];
-        $request->session()->flash('success', "Request sent, Please fill all the details below to get approved");
 
-        Mail::to(Auth::user()->email)->send(new Greet($details));
         return redirect('/dashboard');
     }
     public function confirmCan()
@@ -80,11 +74,7 @@ class FirstController extends Controller
         $user->is_admin = 0;
         $user->confirmed = 1;
         $user->save();
-        $details = [
-            'title' => 'Welcome to Jobs on High, Happy to have you',
-            'body' => 'Note : Pay one time registration fee through our www.jobsonhigh.com website ONLY. Jobsonhigh never ask any fee or payment on visa process. This is direct platform for (C2C)companies to candidates. So, no middle man, no agents. Good luck.'
-        ];
-        Mail::to(Auth::user()->email)->send(new Greet($details));
+
         return redirect('/dashboard');
     }
 }
