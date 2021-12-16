@@ -6,7 +6,7 @@ use App\Models\SecondComplete;
 use Illuminate\Http\Request;
 use App\Models\Second;
 use Auth;
-
+use App\Models\Application;
 class SecondCompleteController extends Controller
 {
     public function post(Request $request)
@@ -16,14 +16,15 @@ class SecondCompleteController extends Controller
             "notice" => 'required',
             "mailing_add" => 'required',
             "email" => 'required',
-            "phone" => 'required|min:10',
+            "phone" => 'required',
             "photo" => 'required|image',
             "passport" => 'required',
             "copy" => 'required',
             "country_code" => 'required',
         ]);
+        $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
 
-        $app = SecondComplete::where('user_id', Auth::user()->id)->first();
+        $app = SecondComplete::where('user_id', Auth::user()->id)->where('application_id', $application->id)->first();
         $app->user_id = Auth::user()->id;
         $app->skills = $request->skills;
         $app->notice = $request->notice;
@@ -56,7 +57,8 @@ class SecondCompleteController extends Controller
 
 
         $app->save();
-        $data = Second::where('user_id', Auth::user()->id)->first();
+
+        $data = Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->first();
         $data->is_completed = 1;
         $data->save();
         $request->session()->flash('success', "Saved");

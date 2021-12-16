@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Second;
 use App\Models\SecondComplete;
 use Illuminate\Http\Request;
@@ -20,7 +21,10 @@ class SecondController extends Controller
             "qualification" => 'required',
             "exp" => 'required',
         ]);
-        if (Second::where('user_id', Auth::user()->id)->exists()) {
+        $application = Application::where('user_id', auth()->user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+
+
+        if (Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->exists()) {
             return redirect('/edit/step/two');
         } else {
             $app = new Second;
@@ -40,15 +44,12 @@ class SecondController extends Controller
                 $app->exp = 0;
             }
             $app->is_completed = 0;
-
+            $app->application_id = $application->id;
             $app->save();
             $complete = new SecondComplete;
-
             $complete->user_id = Auth::user()->id;
-
+            $complete->application_id = $application->id;
             $complete->save();
-
-
             return redirect('/complete/second');
         }
     }
@@ -64,8 +65,9 @@ class SecondController extends Controller
             "qualification" => 'required',
             "exp" => 'required',
         ]);
+        $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
 
-        $app = Second::where('user_id', Auth::user()->id)->first();
+        $app = Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->first();
         $app->user_id = Auth::user()->id;
         $app->firstName = $request->firstName;
         $app->surname = $request->surname;

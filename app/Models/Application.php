@@ -13,4 +13,13 @@ class Application extends Model
     {
         return $this->belongsTo("App\Models\User");
     }
+    public function seconds()
+    {
+        return $this->hasMany("App\Models\Second");
+    }
+    public function secondCompletes()
+    {
+        return $this->hasMany("App\Models\SecondComplete");
+    }
+
 }

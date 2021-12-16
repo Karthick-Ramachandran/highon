@@ -12,4 +12,8 @@ class Second extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+    public function application()
+    {
+        return $this->belongsTo("App\Models\Application");
+    }
 }

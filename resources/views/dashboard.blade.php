@@ -282,6 +282,7 @@
                     </button>
                     <form>
                 </div>
+
                 @else
                 <div class="px-6 pt-4 pb-2">
                     <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
@@ -365,9 +366,9 @@
                 @if(Auth::user()->third)
                 @if(Auth::user()->third->is_completed)
                 <div class="px-6 pt-4 pb-2">
-                    <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold bg-red-400 rounded-full text-white-700">
+                    <div class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold bg-red-400 rounded-full text-white-700">
                         Completed
-                    </button>
+                    </div>
                 </div>
                 @else
                 <div class="px-6 pt-4 pb-2">
@@ -385,16 +386,16 @@
                 @endif
                 @else
                 <div class="px-6 pt-4 pb-2">
-                    <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
+                    <div class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-center text-gray-700 bg-gray-200 rounded-full">
                         Complete Step 2 to continue Step 3
-                    </button>
+                    </div>
                 </div>
                 @endif
                 @else
                 <div class="px-6 pt-4 pb-2">
-                    <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
+                    <div class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-center text-gray-700 bg-gray-200 rounded-full">
                         Complete Step 2 to continue
-                    </button>
+                    </div>
                 </div>
                 @endif
             </div>
@@ -408,7 +409,7 @@
                 <form action="/confirm/candidate" method="POST" onsubmit="myFunction()">
                     @csrf
                     <button type="submit" class="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700">
-                        Candidate looking for a job
+                        Candidate Registration
                     </button>
                 </form>
             </div>

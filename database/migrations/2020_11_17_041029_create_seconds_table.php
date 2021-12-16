@@ -16,6 +16,7 @@ class CreateSecondsTable extends Migration
         Schema::create('seconds', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
+            $table->integer('application_id')->unsigned();
             $table->string('firstName');
             $table->string('lastName')->nullable();
             $table->string('surname')->nullable();

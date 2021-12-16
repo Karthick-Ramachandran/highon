@@ -16,6 +16,7 @@ class CreateSecondCompletesTable extends Migration
         Schema::create('second_completes', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
+            $table->integer('application_id')->unsigned();
             $table->text('skills')->nullable();
             $table->string('notice')->nullable();
             $table->string('height')->nullable();

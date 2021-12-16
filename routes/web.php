@@ -15,11 +15,13 @@ use App\Http\Controllers\SecondController;
 use App\Models\AdminData;
 use App\Models\Application;
 use App\Models\Contact;
+use App\Models\Country;
 use App\Models\Coupon;
 use App\Models\First;
 use App\Models\Payment;
 use App\Models\Qualification;
 use App\Models\Second;
+use App\Models\SecondComplete;
 use App\Models\Sub;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -56,11 +58,26 @@ Route::post('/employer', [EmployerController::class, 'post']);
 Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/cancel/app', function () {
-        $app = Application::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
-        $app->delete();
-        $firsts = First::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
-        $firsts->delete();
-        return redirect('/step/one');
+        $app = Application::where('user_id', auth()->user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+        // check if $app exists
+        if ($app) {
+            $app->delete();
+            $firsts = First::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
+            $firsts->delete();
+            $seconds = Second::where('user_id', auth()->user()->id)->where('application_id', $app->id)->orderBy('created_at', 'desc')->first();
+            if ($seconds) {
+                $seconds->delete();
+            }
+            $secondComplete = SecondComplete::where('user_id', auth()->user()->id)->where('application_id', $app->id)->orderBy('created_at', 'desc')->first();
+            if ($secondComplete) {
+                $secondComplete->delete();
+            }
+            return redirect('/step/one');
+        } else {
+            session()->flash('message', 'You already paid for the application, Create new application if you want apply for new country ');
+            return redirect('/apply/new');
+        }
+
     });
 
     Route::get('/step/one', function () {
@@ -70,13 +87,14 @@ Route::group(['middleware' => 'auth'], function () {
                 return redirect()->back();
             } else {
                 $users = Sub::all();
-
-                return view('step.stepone')->with('users', $users);
+                $countries = Country::all();
+                return view('step.stepone')->with('users', $users)->with('countries', $countries);
             }
         } else {
             $users = Sub::all();
+            $countries = Country::all();
+            return view('step.stepone')->with('users', $users)->with('countries', $countries);
 
-            return view('step.stepone')->with('users', $users);
         }
     });
     Route::post('/apply/coupon', [CouponController::class, 'applycoupon'])->name('couponapply');
@@ -91,7 +109,8 @@ Route::group(['middleware' => 'auth'], function () {
                 Session::flash('message', 'Not valid');
                 return redirect()->back();
             } else {
-                if (Second::where('user_id', Auth::user()->id)->exists()) {
+                $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+                if (Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->exists()) {
                     return redirect('/edit/step/two');
                 } else {
                     return view('step.steptwo');
@@ -125,7 +144,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/admin/data', [AdminDataController::class, 'create']);
 
     Route::get('/edit/step/two', function () {
-        if (Second::where('user_id', Auth::user()->id)->exists()) {
+        $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+        if (Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->exists()) {
             return view('step.editsteptwo');
         } else {
             return redirect()->back();
