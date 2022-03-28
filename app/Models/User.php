@@ -61,23 +61,23 @@ class User extends Authenticatable
 
     public function first()
     {
-        return $this->hasOne('App\Models\First');
+        return $this->hasMany('App\Models\First');
     }
     public function second()
     {
-        return $this->hasOne('App\Models\Second');
+        return $this->hasMany('App\Models\Second');
     }
     public function qualification()
     {
-        return $this->hasOne('App\Models\Qualification');
+        return $this->hasMany('App\Models\Qualification');
     }
     public function third()
     {
-        return $this->hasOne('App\Models\Third');
+        return $this->hasMany('App\Models\Third');
     }
     public function complete()
     {
-        return $this->hasOne("App\Models\SecondComplete");
+        return $this->hasMany("App\Models\SecondComplete");
     }
     public function applications()
     {

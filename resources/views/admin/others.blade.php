@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="text-center">
-    <h2>Search Employees in Malaysia</h2>
+    <h2>Search Employees in {{ $country }}</h2>
 </div>
 
 <div class="mt-3 mb-3 row justify-content-center">
-    <form method="GET" action="{{ route('countrysearch', ['country' => 'Malaysia']) }}">
+    <form method="GET" action="{{ route('countrysearch', ['country' => $country]) }}">
         <div class="input-group">
             <input type="text" name="position" class="form-control bg-light" placeholder="Type designation and enter" aria-label="Search" aria-describedby="basic-addon2">
 

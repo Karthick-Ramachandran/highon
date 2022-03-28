@@ -13,7 +13,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input value="{{ Auth::user()->complete->skills }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Driving, Civil engineer" name="skills" required>
+                        <input  class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Driving, Civil engineer" name="skills" required>
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -23,7 +23,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input type="number" value="{{ Auth::user()->complete->notice }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="In days" name="notice" required>
+                        <input type="number"  class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="In days" name="notice" required>
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -33,7 +33,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input value="{{ Auth::user()->complete->height }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Height" name="height">
+                        <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Height" name="height">
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -43,7 +43,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input value="{{ Auth::user()->complete->weight }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Weight" name="weight">
+                        <input  class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Weight" name="weight">
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -53,7 +53,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input value="{{ Auth::user()->complete->waist }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="waist" name="waist">
+                        <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="waist" name="waist">
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -63,7 +63,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input value="{{ Auth::user()->complete->shoe }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Shoe size" name="shoe">
+                        <input  class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Shoe size" name="shoe">
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -73,7 +73,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input value="{{ Auth::user()->complete->address }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="address" name="address">
+                        <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="address" name="address">
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input value="{{ Auth::user()->complete->mailing_add }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Mailing address" name="mailing_add" required>
+                        <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Mailing address" name="mailing_add" required>
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -94,7 +94,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input type="email" value="{{ Auth::user()->complete->email }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Mailing address" name="email" required>
+                        <input type="email" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Mailing address" name="email" required>
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -104,7 +104,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input type="number" value="{{ Auth::user()->complete->phone }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Phone" name="phone" required>
+                        <input type="number" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Phone" name="phone" required>
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -114,7 +114,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input type="number" value="{{ Auth::user()->complete->country_code }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="91" name="country_code" required>
+                        <input type="number"  class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="91" name="country_code" required>
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
@@ -124,7 +124,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/2">
-                        <input value="{{ Auth::user()->complete->passport }}" class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Passport" name="passport" required>
+                        <input class="w-full px-4 py-2 leading-tight text-gray-700 bg-gray-200 border-2 border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Passport" name="passport" required>
                     </div>
                 </div>
 

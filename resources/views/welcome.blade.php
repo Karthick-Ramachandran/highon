@@ -15,9 +15,12 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('./css-welcome/styles.css') }}" rel="stylesheet" />
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
         <style>
             body{
                 overflow-x: hidden !important;
+                background-color: #01285A !important;
             }
         </style>
     </head>
@@ -34,6 +37,7 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="mx-0 nav-item mx-lg-1"><a class="px-0 py-3 rounded nav-link px-lg-3" href="{{ url('/register') }}">Register</a></li>
                         <li class="mx-0 nav-item mx-lg-1"><a class="px-0 py-3 rounded nav-link px-lg-3" href="{{ url('/login') }}">Login</a></li>
+                        <li class="mx-0 nav-item mx-lg-1"><a class="px-0 py-3 rounded nav-link px-lg-3" href="{{ url('/contact') }}">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -44,7 +48,6 @@
                 <!-- Masthead Avatar Image-->
                 <img class="mb-5 masthead-avatar" src="{{ asset('./logo.jpeg') }}" alt="Logo" />
                 <!-- Masthead Heading-->
-                <h1 class="mb-0 masthead-heading text-uppercase">Jobs on High</h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
@@ -57,52 +60,54 @@
             <a href="{{ url('/register') }}" class="mt-5 rounded btn btn-primary btn-xl">Apply Now</a>
             </div>
         </header>
+
+            <h4 class="text-center text-white" style="background-color: #01285A" >This is direct platform for (C2C)companies to Candidates. So, No Middle man, No Agents. Make one time registration, Ready for interview, Get job visa for free, Fly freely. Signup!</h4>
         <!-- Portfolio Section-->
-         <section style="background-color: #01285A; color: white">
+         <section class="mt-3" style="background-color: #01285A; color: white">
             <!-- How we work-->
-            <div class="mb-3 text-center ">
+            <div class="mt-5 mb-3 text-center ">
               <h3>How We Work</h3>
             </div>
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row align-items-center" data-aos="slide-right" data-aos-duration="3000">
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <img class="img-fluid rounded-circle" src="{{ asset('./step1.png') }}" alt="" />
+                            <img class="img-fluid " src="{{ asset('./step1.png') }}" alt="" />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <h2 class="display-4">Step 1</h2>
-                            <p>Choose the country you want to work in</p>
+                            <h3 class="display-5">Step 1</h3>
+                            <p>In the First Step, Choose the country you want to work in the list of countries we provide in the dropdown</p>
                         </div>
                     </div>
 
                 </div>
  <!-- How we work 2-->
-                <div class="row align-items-center">
+                <div class="row align-items-center" data-aos="slide-left" data-aos-duration="3000">
                     <div class="col-lg-6 order-lg-2">
                         <div class="p-5">
-                            <img class="img-fluid rounded-circle" src="{{ asset('./step2.png') }}" alt="" />
+                            <img class="img-fluid " src="{{ asset('./step2.png') }}" alt="" />
                         </div>
                     </div>
                     <div class="col-lg-6 order-lg-1">
                         <div class="p-5">
-                            <h2 class="display-4">Step 2</h2>
-                            <p>Fill all your personal details to continue</p>
+                            <h3 class="display-5">Step 2</h3>
+                            <p>Fill all your Required details that company want and you can proceed to next step. Second step includes providing your personal details and proof to the company you're applying to.</p>
                         </div>
                     </div>
                 </div>
                 <!-- How we work 3-->
-                <div class="row align-items-center">
+                <div class="row align-items-center" data-aos="slide-right" data-aos-duration="3000">
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <img class="img-fluid rounded-circle" src="{{ asset('./step3.png') }}" alt="" />
+                            <img class="img-fluid " src="{{ asset('./step3.png') }}" alt="" />
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="mb-3 col-lg-6">
                         <div class="p-5">
-                            <h2 class="display-4">Step 3</h2>
-                            <p>Complete the payment and done.</p>
+                            <h3 class="display-5">Step 3</h3>
+                            <p>The third and final step will be payment. Complete the payment and done your application is successful. oh, We have coupons too, Apply coupons and get discount</p>
                         </div>
                     </div>
          </section>
@@ -119,5 +124,9 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init();
+          </script>
     </body>
 </html>

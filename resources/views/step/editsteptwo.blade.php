@@ -14,7 +14,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" value="{{ Auth::user()->second->firstName }}" placeholder="John" name="firstName" required>
+                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  placeholder="John" name="firstName" required>
                     </div>
                 </div>
 
@@ -26,7 +26,7 @@
 
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" value="{{ Auth::user()->second->surname }}" placeholder="" name="surname" required>
+                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  placeholder="" name="surname" required>
 
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" value="{{ Auth::user()->second->dob }}" type="date" name="dob" required>
+                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  type="date" name="dob" required>
                     </div>
                 </div>
                 <div class="md:flex md:items-center mb-6">
@@ -47,7 +47,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" value="{{ Auth::user()->second->age }}" type="number" placeholder="35" name="age" required>
+                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"  type="number" placeholder="35" name="age" required>
                     </div>
                 </div>
                 <div class="md:flex md:items-center mb-6">
@@ -78,7 +78,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="American" value="{{ Auth::user()->second->nationality }}" name="nationality" required>
+                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="American"  name="nationality" required>
                     </div>
                 </div>
                 <div class="md:flex md:items-center mb-6">
@@ -88,7 +88,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="UG" value="{{ Auth::user()->second->qualification }}" name="qualification" required>
+                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="UG"  name="qualification" required>
                     </div>
                 </div>
                 <div class="md:flex md:items-center mb-6">

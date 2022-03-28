@@ -16,6 +16,7 @@ class CreateFirstsTable extends Migration
         Schema::create('firsts', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
+            $table->integer('application_id')->unsigned();
             $table->string('country');
             $table->string('permit')->nullable();
             $table->text('position');

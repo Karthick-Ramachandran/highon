@@ -15,11 +15,11 @@ class Application extends Model
     }
     public function seconds()
     {
-        return $this->hasMany("App\Models\Second");
+        return $this->hasOne("App\Models\Second");
     }
     public function secondCompletes()
     {
-        return $this->hasMany("App\Models\SecondComplete");
+        return $this->hasOne("App\Models\SecondComplete");
     }
 
 }

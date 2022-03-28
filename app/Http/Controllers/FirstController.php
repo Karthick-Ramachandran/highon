@@ -22,13 +22,24 @@ class FirstController extends Controller
             "position" => 'required',
             "country" => 'required'
         ]);
-        if (Auth::user()->first) {
-            $request->session()->flash('message', "Failed, You already Saved");
-
+        $check = Application::where('user_id', Auth::user()->id)->where('country', $request->country)->first();
+        if ($check) {
+            $request->session()->flash('message', "you have already applied for this country");
             return redirect()->back();
         } else {
             $payment = Payment::where('id', '!=', 0)->first();
+
+            $application = new Application;
+            $application->user_id = Auth::user()->id;
+            $application->country = $request->country;
+            $application->permit = $request->permit;
+            $application->position = $request->position;
+            $application->sub = $request->sub;
+
+            $application->amount = $payment->payment;
+            $application->save();
             $app = new First;
+            $app->application_id = $application->id;
             $app->user_id = Auth::user()->id;
             $app->country = $request->country;
             if ($request->country == "Singapore") {
@@ -40,15 +51,6 @@ class FirstController extends Controller
 
             $app->position = $request->position;
             $app->save();
-            $application = new Application;
-            $application->user_id = Auth::user()->id;
-            $application->country = $request->country;
-            $application->permit = $request->permit;
-            $application->position = $request->position;
-            $application->sub = $request->sub;
-
-            $application->amount = $payment->payment;
-            $application->save();
             $request->session()->flash('success', "Saved");
             return redirect('/dashboard');
         }

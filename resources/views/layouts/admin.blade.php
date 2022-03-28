@@ -77,7 +77,15 @@
                     <i class="fa fa-briefcase"></i>
                     <span>Qatar</span>
                 </a>
+                {{-- get all countries from country model --}}
+                @foreach (\App\Models\Country::all() as $con)
+                <a class="nav-link" href="/admin/country/{{ $con->name}}">
+                    <i class="fa fa-briefcase"></i>
+                    <span>{{ $con->name}}</span>
+                </a>
+                @endforeach
             </li>
+
 
             @if(Auth::user()->is_super_admin)
             <li class="nav-item">
@@ -92,6 +100,7 @@
                         <a class="collapse-item" href="{{ route('requestadmin') }}">Approve Employers</a>
                         <a class="collapse-item" href="{{ route('coupons') }}">Create Coupons</a>
                         <a class="collapse-item" href="{{ route('paidusing') }}">Coupon Payments</a>
+                        <a class="collapse-item" href="{{ url('/admin/country') }}">Add Country</a>
                         <a class="collapse-item" href="{{ route('changepay') }}">Change Payment</a>
                         <a class="collapse-item" href="{{ url('/admin/contacts/frontend') }}">Contacts</a>
                         <a class="collapse-item" href="{{ url('/admin/subs') }}">Add Sub Job Category</a>

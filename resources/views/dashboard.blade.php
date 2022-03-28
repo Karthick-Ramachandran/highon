@@ -251,10 +251,10 @@
 
     @else
     @if(Auth::user()->third)
-    @if(Auth::user()->third->is_completed)
+    @if(Auth::user()->third)
     <div class="px-6 pt-4 pb-2 mt-3 mb-3">
         <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold bg-red-400 rounded-full text-white-700">
-            <a href="{{ url('/apply/new') }}">Apply new</a>
+            <a href="{{ url('/step/one') }}">Apply new</a>
         </button>
     </div>
     @endif
@@ -273,7 +273,7 @@
                     </p>
                 </div>
                 @if(Auth::user()->first)
-                @if(Auth::user()->first->is_completed)
+                @if(\App\Models\Application::where('is_completed', 0)->where('user_id', Auth::user()->id)->first())
                 <div class="px-6 pt-4 pb-2">
                     <form action="/cancel/app" method="POST">
                         @csrf
@@ -307,30 +307,16 @@
                     </p>
                 </div>
                 @if(Auth::user()->first)
-                @if(Auth::user()->first->is_completed)
+                @if(Auth::user()->first)
                 @if(Auth::user()->second)
-                @if(Auth::user()->second->is_completed)
-                <div class="px-6 pt-4 pb-2">
-                    <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold bg-red-400 rounded-full text-white-700">
-                        <a href="{{ url('/edit/step/two') }}">Edit Step 2</a>
-
-                    </button>
-                    @if(Auth::user()->second->exp)
-                    <button class="inline-block px-3 py-1 mt-2 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
-                        <a href="{{ url('/add/exp') }}">Add Work Experience</a>
-                    </button>
-                    @endif
-                </div>
-                @else
                 <div class="px-6 pt-4 pb-2">
 
                     <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
-                        <a href="{{ url('/step/two') }}">Continue to Step 2</a>
+                        <a href="{{ url('/step/two') }}">Continue Step 2</a>
                     </button>
 
 
                 </div>
-                @endif
                 @else
                 <div class="px-6 pt-4 pb-2">
                     <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
@@ -362,25 +348,25 @@
                     </p>
                 </div>
                 @if(Auth::user()->second)
-                @if(Auth::user()->second->is_completed)
-                @if(Auth::user()->third)
-                @if(Auth::user()->third->is_completed)
+                @if(Auth::user()->second)
+                @if(\App\Models\Application::where('is_completed', 0)->where('user_id', Auth::user()->id)->first())
+                @if(\App\Models\Application::where('is_completed', 0)->where('user_id', Auth::user()->id)->first())
                 <div class="px-6 pt-4 pb-2">
-                    <div class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold bg-red-400 rounded-full text-white-700">
-                        Completed
-                    </div>
+                    <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
+                        <a href="/payment">Continue Step 3</a>
+                    </button>
                 </div>
                 @else
                 <div class="px-6 pt-4 pb-2">
                     <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
-                        <a href="/payment">Start Step 3</a>
+                        <a href="/payment">Continue Step 3</a>
                     </button>
                 </div>
                 @endif
                 @else
                 <div class="px-6 pt-4 pb-2">
                     <button class="inline-block px-3 py-1 mb-2 mr-2 text-xl font-semibold text-gray-700 bg-gray-200 rounded-full">
-                        <a href="/payment">Start Step 3</a>
+                        <a href="/payment">Continue Step 3</a>
                     </button>
                 </div>
                 @endif

@@ -75,21 +75,16 @@ Route::group(['middleware' => 'auth'], function () {
             return redirect('/step/one');
         } else {
             session()->flash('message', 'You already paid for the application, Create new application if you want apply for new country ');
-            return redirect('/apply/new');
+            return redirect('/step/one');
         }
 
     });
 
     Route::get('/step/one', function () {
-        if (Auth::user()->first) {
-            if (Auth::user()->first->is_completed) {
+        $app = Application::where('user_id', auth()->user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+        if ($app) {
                 Session::flash('message', 'Not valid');
                 return redirect()->back();
-            } else {
-                $users = Sub::all();
-                $countries = Country::all();
-                return view('step.stepone')->with('users', $users)->with('countries', $countries);
-            }
         } else {
             $users = Sub::all();
             $countries = Country::all();
@@ -104,30 +99,34 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/stepone', [FirstController::class, 'post']);
     Route::get('/step/two', function () {
+        // check if applucation exists
+        $app = Application::where('user_id', auth()->user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+        if ($app) {
         if (Auth::user()->first) {
-            if (!Auth::user()->first->is_completed) {
-                Session::flash('message', 'Not valid');
-                return redirect()->back();
-            } else {
                 $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
                 if (Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->exists()) {
                     return redirect('/edit/step/two');
                 } else {
                     return view('step.steptwo');
                 }
-            }
         } else {
             Session::flash('message', 'Not valid');
             return redirect()->back();
         }
+    }else {
+        Session::flash('message', 'Not valid');
+        return redirect()->back();
+    }
+
     });
     Route::get('/complete/second', function () {
         if (Auth::user()->first) {
-            if (!Auth::user()->first->is_completed) {
+            $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+            if (Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->exists()) {
+                return view('step.complete');
+            } else {
                 Session::flash('message', 'Not valid');
                 return redirect()->back();
-            } else {
-                return view('step.complete');
             }
         } else {
             Session::flash('message', 'Not valid');
@@ -136,7 +135,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::post('/steptwo', [SecondController::class, 'post']);
     Route::post('/steptwo/comp', [SecondCompleteController::class, 'post']);
-    Route::get('/apply/new', [ApplicationController::class, 'get']);
+    // Route::get('/apply/new', [ApplicationController::class, 'get']);
 
     Route::post('/newapp', [ApplicationController::class, 'post']);
     Route::get('/complete/payment/new', [ApplicationController::class, 'complete']);
@@ -144,33 +143,42 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/admin/data', [AdminDataController::class, 'create']);
 
     Route::get('/edit/step/two', function () {
+        $app = Application::where('user_id', auth()->user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+        if ($app) {
         $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
         if (Second::where('user_id', Auth::user()->id)->where('application_id', $application->id)->exists()) {
             return view('step.editsteptwo');
         } else {
             return redirect()->back();
         }
+    } else {
+        return redirect('/dashboard');
+
+    }
     });
     Route::post('/editstep', [SecondController::class, 'edit']);
     Route::get('/payment', function () {
+        $apps = Application::where('user_id', auth()->user()->id)->where('is_completed', 0)->orderBy('created_at', 'desc')->first();
+        // check if $app exists
+        if ($apps) {
         $application = Application::where('user_id', Auth::user()->id)->where('is_completed', 0)->first();
         $app = Payment::where('id', '!=', 0)->first();
-        return view('payment')->with('app', $app)->with('application', $application);
-    });
-
-    Route::get('/add/exp', function () {
-        if (Auth::user()->second) {
-            if (Auth::user()->second->exp) {
-                $app = Qualification::where('user_id', Auth::user()->id)->paginate(6);
-                return view('step.experience')->with('app', $app);
-            } else {
-                Session::flash('message', 'Not valid');
-                return redirect('/dashboard');
-            }
+        // check if seconds is completed and move
+        if (SecondComplete::where('user_id', Auth::user()->id)->where('application_id', $application->id)->exists()) {
+            return view('payment')->with('app', $app)->with('application', $application);
         } else {
             Session::flash('message', 'Not valid');
             return redirect('/dashboard');
         }
+        } else {
+            Session::flash('message', 'Not valid');
+            return redirect('/dashboard');
+        }
+    });
+
+    Route::get('/add/exp', function () {
+     $app = Qualification::where('user_id', Auth::user()->id)->paginate(6);
+     return view('step.experience')->with('app', $app);
     });
     Route::post('/add/exp', [QualificationController::class, 'post']);
     Route::get('delete/{id}', function ($id) {
@@ -201,6 +209,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::get('/singapore/{pass}', function ($pass) {
         $users = Application::where('country', '=', "Singapore")->where('permit', '=', $pass)->where('is_completed', 1)->paginate(27);
+
         return view('admin.singapore')->with('users', $users);
     })->name('singapore');
     Route::get('/dubai', function () {
@@ -215,11 +224,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         $users = Application::where('country', '=', "Qatar")->where('is_completed', 1)->paginate(27);
         return view('admin.qatar')->with('users', $users);
     })->name('qatar');
-
-    Route::get('/users/{id}', function ($id) {
+    Route::get('/country/{country}', function ($country) {
+        $users = Application::where('country', '=', $country)->where('is_completed', 1)->paginate(27);
+        return view('admin.others')->with('users', $users)->with('country', $country);
+    })->name('others');
+    Route::get('/users/{id}/{appId}', function ($id, $appId) {
         $users = User::where('id', $id)->first();
         $qual = Qualification::where('user_id', $users->id)->paginate(3);
-        return view('admin.view')->with('users', $users)->with('qual', $qual);
+        return view('admin.view')->with('users', $users)->with('qual', $qual)->with('appId', $appId);
     })->name('detailspage');
     Route::get('/search/emp/{country}', [SearchController::class, 'search'])->name('countrysearch');
 });
@@ -279,8 +291,30 @@ Route::group(['prefix' => 'admin', 'middleware' => 'super'], function () {
         $users = Sub::where('id', "!=", 0)->paginate(27);
         return view('admin.createsub')->with('users', $users);
     })->name('craetesub');
-
+    Route::get('/country', function () {
+        $users = Country::where('id', "!=", 0)->paginate(27);
+        return view('admin.createcountry')->with('users', $users);
+    });
     Route::post('/subs', [EmployerController::class, 'addSubs'])->name('test');
+    Route::post('/country', function() {
+        // add new coountry
+        $country = new Country;
+        $country->name = request('name');
+        $country->save();
+        return redirect()->back();
+    });
+
+    Route::get('/delete/country/{id}', function($id) {
+        // delte country
+        $country = Country::where('id', $id)->first();
+        $country->delete();
+        return redirect()->back();
+    });
 
     Route::get('/delete/subs/{id}', [EmployerController::class, 'deleteSubs'])->name('test2');
+});
+
+// edit/application
+Route::get('/edit/application/', function () {
+    return view('editapplication');
 });

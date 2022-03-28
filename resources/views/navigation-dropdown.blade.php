@@ -15,6 +15,12 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         Jobs on High
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ url('/add/exp') }}">
+                        Add Experience
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ url('/edit/application') }}">
+                        View / Edit Application
+                    </x-jet-nav-link>
                     @if(Auth::user()->is_admin)
                     <x-jet-nav-link href="{{ url('/admin/dashboard') }}">
                         Employee list
@@ -46,6 +52,7 @@
                                 </svg>
                             </div>
                         </button>
+
                         @endif
                     </x-slot>
                     <x-slot name="content">
@@ -106,6 +113,7 @@
                                 {{ __('Logout') }}
                             </x-jet-dropdown-link>
                         </form>
+
                     </x-slot>
                 </x-jet-dropdown>
             </div>
